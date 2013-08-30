@@ -1,0 +1,27 @@
+package me.JCW313.AsmalurGhost;
+
+import java.util.logging.Logger;
+
+import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class AsmalurGhost extends JavaPlugin {
+	public final Logger logger = Logger.getLogger("Mincecraft");
+	public static AsmalurGhost plugin;
+	public final MyPlayerListener pl = new MyPlayerListener();
+	
+	@Override
+	public void onDisable() {
+		PluginDescriptionFile pdfFile = this.getDescription();
+		this.logger.info(pdfFile.getName() + " has been Disabled!");
+	}
+	
+	@Override
+	public void onEnable() {
+		PluginDescriptionFile pdfFile = this.getDescription();
+		this.logger.info(pdfFile.getName() + " V " + pdfFile.getVersion() + " has been Enabled!");
+		PluginManager pm = getServer().getPluginManager();
+		pm.registerEvents(this.pl, this);
+    }
+}
