@@ -1,0 +1,47 @@
+package me.JCW313.AsmalurGhost;
+
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Creature;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+public class MyPlayerListener implements Listener {
+	public static AsmalurGhost plugin;
+	
+	@EventHandler
+    public void PlayerJoin(PlayerJoinEvent event) {
+    	Player p = event.getPlayer();
+		if(p.hasPermission("access.ghost")){
+			p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 2));
+			p.setGameMode(GameMode.CREATIVE);
+			p.sendMessage(ChatColor.GRAY + "Welcome to Asmalur! You are a" + ChatColor.LIGHT_PURPLE +  " Ghost" + ChatColor.GRAY + ", which means you are invisible to everybody and cannot interact with the world. You can still fly around and watch people roleplay, so please enjoy!");
+			
+			PlayerInventory pi = p.getInventory();
+			pi.clear();
+		} else{
+			p.sendMessage(ChatColor.GRAY + "Welcome back to" + ChatColor.GOLD + " Asmalur!");
+			p.setGameMode(GameMode.SURVIVAL);
+			p.removePotionEffect(PotionEffectType.INVISIBILITY);
+		}
+	}
+
+	@EventHandler
+    public void onEntityDamageByEntity(EntityDamageEvent event){
+		Entity e = event.getEntity();
+		//Entity damager = event.getDamager();
+		
+		if(e instanceof Creature){
+			Player player = (Player) e;
+			event.setDamage(0);
+			player.sendMessage(ChatColor.RED + "You can not hit players when you are a" + ChatColor.LIGHT_PURPLE + " Ghost.");
+		}
+	}
+}
