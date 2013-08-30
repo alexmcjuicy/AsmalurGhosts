@@ -16,7 +16,7 @@ public class MyPlayerListener implements Listener {
     	Player p = event.getPlayer();
 		if(p.hasPermission("access.ghost")){
 			p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 2));
-			p.sendMessage(ChatColor.GRAY + "You are a Ghost!");
+			p.sendMessage(ChatColor.GRAY + "Welcome to Asmalur! You are a Ghost, which means you are invisible to everybody and cannot interact with the world. You can still fly around and watch people roleplay, so please enjoy!");
 		} else{
 			p.sendMessage(ChatColor.GREEN + "Welcome back to Asmalur!");
 		}
