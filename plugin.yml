@@ -1,0 +1,9 @@
+name: AsmlaurGhost
+main: me.JCW313.AsmalurGhost.AsmalurGhost
+version: 1.0
+description: >
+             Hide new players.
+Permissions:
+  access.ghost:
+    description: Hides new players!
+    default: false
