@@ -1,0 +1,25 @@
+package me.JCW313.AsmalurGhost;
+
+import org.bukkit.ChatColor;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+
+public class InventoryClickListener implements Listener {
+	public static AsmalurGhost plugin;
+	
+	@EventHandler
+	  public void onInventoryClick(InventoryClickEvent event) {
+		HumanEntity i = event.getWhoClicked();
+		
+		if(i instanceof Player){
+			Player p = (Player) i;
+			if(p.hasPermission("deny.ghost.inv")){
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.RED + "You can not spawn items as a" + ChatColor.LIGHT_PURPLE + " Guest");
+			}
+		}
+	}
+}
