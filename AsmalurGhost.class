@@ -11,7 +11,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AsmalurGhost extends JavaPlugin {
 	public final Logger logger = Logger.getLogger("Mincecraft");
 	public static AsmalurGhost plugin;
-	public final MyPlayerListener pl = new MyPlayerListener();
+	public final PlayerJoinListener pj = new PlayerJoinListener();
+	public final EntityDamageListener ed = new EntityDamageListener();
+	public final InventoryClickListener ic = new InventoryClickListener();
 	public static Permission perms = null;
 	
 	 @Override
@@ -24,7 +26,9 @@ public class AsmalurGhost extends JavaPlugin {
 	        if (!setupPermissions()) {
 	            getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 	            PluginManager pm = getServer().getPluginManager();
-	            pm.registerEvents(this.pl, this);
+	            pm.registerEvents(this.pj, this);
+	            pm.registerEvents(this.ed, this);
+	            pm.registerEvents(this.ic, this);
 	            return;
 	        }
 	    }
