@@ -1,0 +1,32 @@
+package me.JCW313.AsmalurGhost;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.PlayerInventory;
+
+public class PlayerJoinListener implements Listener {
+	public static AsmalurGhost plugin;
+	
+	@EventHandler
+    public void PlayerJoin(PlayerJoinEvent event) {
+    	Player p = event.getPlayer();
+		if(p.hasPermission("access.ghost")){
+			p.setGameMode(GameMode.CREATIVE);
+			p.sendMessage(ChatColor.GRAY + "Welcome to Asmalur! You are a" + ChatColor.LIGHT_PURPLE +  " Guest" + ChatColor.GRAY + ", which means you are invisible to everybody and cannot interact with the world. You can still fly around and watch people roleplay, so please enjoy!");
+		
+			for(Player player : Bukkit.getOnlinePlayers()) {
+				player.hidePlayer(p);
+			}
+			PlayerInventory pi = p.getInventory();
+			pi.clear();
+		} else if(p.hasPermission("no.ghost")){
+			p.sendMessage(ChatColor.GRAY + "Welcome back to" + ChatColor.GOLD + " Asmalur!");
+			p.setGameMode(GameMode.SURVIVAL);
+		}
+	}
+}
